@@ -187,6 +187,20 @@ class BuildCommand extends Command {
     await sink.flush();
     await sink.close();
 
+    var dotenv = new File(_path([Directory.current.path, '.env']));
+    if (dotenv.existsSync()) {
+      print('Generating .envcheck from .env...');
+      var lines = dotenv
+          .readAsLinesSync()
+          .where((_) => !_.startsWith('#') && _.trim().isNotEmpty);
+      var vars = lines.map((_) => _.split('=').first);
+      var envCheck = new File(_path([destination, '.envcheck']));
+      var sink = envCheck.openWrite();
+      sink.writeAll(vars, '\n');
+      await sink.flush();
+      await sink.close();
+    }
+
     print('Done.');
   }
 }
