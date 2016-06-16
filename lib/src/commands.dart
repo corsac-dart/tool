@@ -101,7 +101,8 @@ class TestCommand extends Command {
       stderr.addStream(process.stderr);
       return process.exitCode;
     }).then((code) {
-      exitCode = code;
+      print('Pub exited with exit code: $code.');
+      exit(code);
     });
   }
 }
