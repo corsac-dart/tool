@@ -8,6 +8,6 @@ import 'dart:io';
 Future main(List<String> args) async {
   var corsac = await CorsacTool.build();
   return corsac.run(args).then((_) {
-    exit(0);
+    exit(exitCode);
   });
 }
